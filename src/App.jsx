@@ -1,11 +1,14 @@
 import React from 'react';
+import ProductSliceView from './App/Features/Products/ProductSliceView';
 
 const App = () => {
-  return (
-    <div>
-      this is app
-    </div>
-  );
+   return (
+      <div>
+         <div>
+            <ProductSliceView />
+         </div>
+      </div>
+   );
 };
 
 export default App;
