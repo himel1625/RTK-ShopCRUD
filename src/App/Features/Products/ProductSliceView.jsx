@@ -5,7 +5,7 @@ import { useDeleteProductsMutation, useGetProductsQuery } from '../../../Service
 const ProductSliceView = () => {
    const { data, error, isLoading, isSuccess } = useGetProductsQuery();
    const [deleteProducts] = useDeleteProductsMutation();
-   
+
    const handleDelete = async id => {
       await deleteProducts(id);
    };
