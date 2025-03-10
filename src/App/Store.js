@@ -1,10 +1,10 @@
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { ProductApi } from '../Services/ProductApi';
-import ProductSlice from './Features/Products/ProductSlice';
+import ProductReducer from './Features/Products/ProductSlice';
 const Store = configureStore({
    reducer: {
-      productsR: ProductSlice,
+      productsR: ProductReducer,
       [ProductApi.reducerPath]: ProductApi.reducer,
    },
    middleware: getDefaultMiddleware =>
