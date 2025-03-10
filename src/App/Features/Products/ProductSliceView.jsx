@@ -1,10 +1,12 @@
 import React from 'react';
+import LoadingSpinner from '../../../Components/LoadingSpinner';
 import { useGetProductsQuery } from '../../../Services/ProductApi';
 
 const ProductSliceView = () => {
    const { data, error, isLoading, isSuccess } = useGetProductsQuery();
 
-   if (isLoading) return <div>Loading...</div>;
+   if (isLoading) return <LoadingSpinner />;
+
    if (error) return <div>Error: {error.message}</div>;
 
    return (
