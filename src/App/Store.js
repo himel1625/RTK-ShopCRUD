@@ -7,6 +7,7 @@ const Store = configureStore({
       productsR: ProductReducer,
       [ProductApi.reducerPath]: ProductApi.reducer,
    },
+   
    middleware: getDefaultMiddleware =>
       getDefaultMiddleware()
          .prepend(createListenerMiddleware().middleware)
