@@ -1,7 +1,9 @@
 import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useCreateProductMutation } from '../../../Services/ProductApi';
 const ProductForm = () => {
+   const { Products } = useSelector(state => state.productsR);
    const [createProduct] = useCreateProductMutation();
    const [product, setProduct] = useState({
       id: '',
@@ -16,6 +18,7 @@ const ProductForm = () => {
       },
    });
 
+   
    const handleChange = e => {
       const { name, value } = e.target;
       if (name === 'rate' || name === 'count') {

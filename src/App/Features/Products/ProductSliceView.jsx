@@ -1,13 +1,19 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import LoadingSpinner from '../../../Components/LoadingSpinner';
 import { useDeleteProductsMutation, useGetProductsQuery } from '../../../Services/ProductApi';
+import { addProduct } from './ProductSlice';
 
 const ProductSliceView = () => {
+   const dispatch = useDispatch();
    const { data, error, isLoading, isSuccess } = useGetProductsQuery();
    const [deleteProducts] = useDeleteProductsMutation();
 
    const handleDelete = async id => {
       await deleteProducts(id);
+   };
+   const handleEdit = product => {
+      dispatch(addProduct(product));
    };
 
    if (isLoading) return <LoadingSpinner />;
@@ -36,12 +42,20 @@ const ProductSliceView = () => {
                         <span className='text-yellow-500'>⭐ {product.rating.rate}</span>
                         <span className='text-gray-500 ml-2'>({product.rating.count} reviews)</span>
                      </div>
-                     <button
-                        onClick={() => handleDelete(product.id)}
-                        className=' mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-md uppercase'
-                     >
-                        DELETE
-                     </button>
+                     <div className='flex items-center gap-5 justify-center'>
+                        <button
+                           onClick={() => handleDelete(product.id)}
+                           className=' mt-4 w-full h-10 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-md uppercase'
+                        >
+                           DELETE
+                        </button>
+                        <button
+                           onClick={() => handleEdit(product)}
+                           className=' mt-4 w-full h-10 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md uppercase'
+                        >
+                           Edit
+                        </button>
+                     </div>
                   </div>
                ))}
          </div>
