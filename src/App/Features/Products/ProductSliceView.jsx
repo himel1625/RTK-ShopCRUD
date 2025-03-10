@@ -1,12 +1,16 @@
 import React from 'react';
 import LoadingSpinner from '../../../Components/LoadingSpinner';
-import { useGetProductsQuery } from '../../../Services/ProductApi';
+import { useDeleteProductsMutation, useGetProductsQuery } from '../../../Services/ProductApi';
 
 const ProductSliceView = () => {
    const { data, error, isLoading, isSuccess } = useGetProductsQuery();
+   const [deleteProducts] = useDeleteProductsMutation();
+   
+   const handleDelete = async id => {
+      await deleteProducts(id);
+   };
 
    if (isLoading) return <LoadingSpinner />;
-
    if (error) return <div>Error: {error.message}</div>;
 
    return (
@@ -32,6 +36,12 @@ const ProductSliceView = () => {
                         <span className='text-yellow-500'>⭐ {product.rating.rate}</span>
                         <span className='text-gray-500 ml-2'>({product.rating.count} reviews)</span>
                      </div>
+                     <button
+                        onClick={() => handleDelete(product.id)}
+                        class=' mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-md uppercase'
+                     >
+                        DELETE
+                     </button>
                   </div>
                ))}
          </div>
