@@ -1,6 +1,8 @@
 import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
+import { useCreateProductMutation } from '../../../Services/ProductApi';
 const ProductForm = () => {
+   const [createProduct] = useCreateProductMutation();
    const [product, setProduct] = useState({
       id: '',
       title: '',
@@ -32,10 +34,10 @@ const ProductForm = () => {
       }
    };
 
-   const handleSubmit = e => {
+   const handleSubmit = async e => {
       e.preventDefault();
       const newProduct = { ...product, id: nanoid() };
-      console.log(newProduct);
+      await createProduct(newProduct);
    };
    return (
       <div className='max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md'>
@@ -91,7 +93,7 @@ const ProductForm = () => {
             <div>
                <label className='block text-sm font-medium text-gray-700'>Image URL:</label>
                <input
-                  type='text'
+                  type='url'
                   name='image'
                   value={product.image}
                   onChange={handleChange}
